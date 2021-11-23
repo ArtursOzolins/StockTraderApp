@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FundsController;
+use App\Http\Controllers\StocksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,8 @@ Route::get('/dashboard', function () {
 
 Route::get('/funds/deposit', [FundsController::class, 'depositFundsView'])->name('funds.deposit');
 Route::patch('/funds/deposit/amount', [FundsController::class, 'depositAmount'])->name('funds.depositAmount');
+
+Route::get('/search', [StocksController::class, 'searchView'])->name('stocks.search');
+Route::put('/search/purchase', [StocksController::class, 'purchase'])->name('stocks.purchase');
 
 require __DIR__.'/auth.php';
