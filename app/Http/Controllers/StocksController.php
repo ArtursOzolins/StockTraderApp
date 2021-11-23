@@ -28,7 +28,7 @@ class StocksController extends Controller
 
     public function purchase(Request $request): RedirectResponse
     {
-        
+
 
         return redirect(route('dashboard'));
     }
