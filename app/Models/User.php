@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'funds'
     ];
 
     /**
@@ -41,4 +42,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getFunds(): int
+    {
+        return $this->funds;
+    }
+
+    public function addFunds($amount): void
+    {
+        $this->funds += $amount;
+    }
+
+    public function decreaseFunds($amount): void
+    {
+        $this->funds -= $amount;
+    }
 }

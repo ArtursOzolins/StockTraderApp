@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FundsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/funds/deposit', [FundsController::class, 'depositFundsView'])->name('funds.deposit');
+Route::patch('/funds/deposit/amount', [FundsController::class, 'depositAmount'])->name('funds.depositAmount');
 
 require __DIR__.'/auth.php';
