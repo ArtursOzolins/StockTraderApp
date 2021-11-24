@@ -26,7 +26,10 @@ Route::get('/dashboard', function () {
 Route::get('/funds/deposit', [FundsController::class, 'depositFundsView'])->name('funds.deposit');
 Route::patch('/funds/deposit/amount', [FundsController::class, 'depositAmount'])->name('funds.depositAmount');
 
-Route::get('/search', [StocksController::class, 'searchView'])->name('stocks.search');
-Route::put('/search/purchase', [StocksController::class, 'purchase'])->name('stocks.purchase');
+Route::get('/stocks/search', [StocksController::class, 'searchView'])->name('stocks.search');
+Route::put('/stocks/search/purchase', [StocksController::class, 'purchase'])->name('stocks.purchase');
+
+Route::get('/stocks/owned', [StocksController::class, 'ownedView'])->name('stocks.owned');
+Route::patch('/stocks/owned/sell', [StocksController::class, 'sell'])->name('owned.sell');
 
 require __DIR__.'/auth.php';

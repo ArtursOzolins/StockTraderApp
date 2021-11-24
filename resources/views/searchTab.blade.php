@@ -55,8 +55,9 @@
                         <form method="post" action="{{ route('stocks.purchase') }}">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" value="{{$company['symbol']}}">
-                            <input type="hidden" value="{{$company['currentPrice']}}">
+                            <input type="hidden" name="symbol" value="{{$company['symbol']}}">
+                            <input type="hidden" name="name" value="{{$company['name']}}">
+                            <input type="hidden" name="currentPrice" value="{{$company['currentPrice']}}">
                             <label for="amount">Amount: </label>
                             <input type="number" id="amount" name="amount" min="0">
                             <input type="submit" value="Purchase">
