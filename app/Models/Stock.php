@@ -14,7 +14,8 @@ class Stock extends Model
         'symbol',
         'name',
         'purchased_for',
-        'amount'
+        'newest_price',
+        'amount',
     ];
 
     public function user()
@@ -45,6 +46,11 @@ class Stock extends Model
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    public function getNewestValue()
+    {
+        return $this->newest_price;
     }
 
     public function setAmount($amount)

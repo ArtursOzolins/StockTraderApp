@@ -41,13 +41,13 @@
                                     <td>Current price: {{$company['currentPrice']}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Current price: {{$company['highPrice']}}</td>
+                                    <td>Highest price today: {{$company['highPrice']}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Current price: {{$company['lowPrice']}}</td>
+                                    <td>Lowest price today: {{$company['lowPrice']}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Current price: {{$company['openPrice']}}</td>
+                                    <td>Opening price: {{$company['openPrice']}}</td>
                                 </tr>
                         </table>
                     </div>
@@ -59,7 +59,7 @@
                             <input type="hidden" name="name" value="{{$company['name']}}">
                             <input type="hidden" name="currentPrice" value="{{$company['currentPrice']}}">
                             <label for="amount">Amount: </label>
-                            <input type="number" id="amount" name="amount" min="0">
+                            <input type="number" id="amount" name="amount" min="0" style="width: 90px">
                             <input type="submit" value="Purchase">
                         </form>
                     </div>

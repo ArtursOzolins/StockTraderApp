@@ -12,20 +12,24 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <table style="width:70%">
                         <tr>
-                        <th>Company</th>
-                        <th>Amount</th>
+                            <th>Company</th>
+                            <th>Amount owned</th>
+                            <th>Price paid</th>
+                            <th>Current value</th>
                         </tr
                         @foreach($stock as $record)
                             <tr>
                                 <td style="text-align: center">{{$record->getName()}}</td>
                                 <td style="text-align: center">{{$record->getAmount()}}</td>
+                                <td style="text-align: center">{{$record->getPurchasedFor()}}</td>
+                                <td style="text-align: center">{{$record->getNewestValue()}}</td>
                                 <td>
                                     <form method="post" action="{{ route('owned.sell') }}">
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="id" value="{{$record->getID()}}">
                                         <input type="hidden" name="price" value="{{$record->getPurchasedFor()}}">
-                                        <input type="number" name="amount" min="0" max="{{$record->getAmount()}}" style="width: 15%">
+                                        <input type="number" name="amount" min="0" max="{{$record->getAmount()}}" style="width: 100px">
                                         <input type="submit" value="Sell">
                                     </form>
                                 </td>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FundsController;
 use App\Http\Controllers\StocksController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
