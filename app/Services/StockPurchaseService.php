@@ -7,31 +7,31 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StockPurchaseService
 {
-    public function purchaseStock(Request $request)
+    public function purchaseStock(string $symbol, string $name, string $currentPrice, string $amount)
     {
         $existingStock = auth()->user()->stock()->get()->first(
-            function ($stock) use ($request) {
-                return $stock->symbol == $request['symbol'];
+            function ($stock) use ($symbol) {
+                return $stock->symbol == $symbol;
             });
 
         if ($existingStock == null)
         {
             $stock = new Stock([
-                'symbol' => $request['symbol'],
-                'name' => $request['name'],
-                'purchased_for' => $request['currentPrice'],
-                'newest_price' => $request['currentPrice'],
-                'amount' => $request['amount']
+                'symbol' => $symbol,
+                'name' => $name,
+                'purchased_for' => $currentPrice,
+                'newest_price' => $currentPrice,
+                'amount' => $amount
             ]);
             $stock->user()->associate(auth()->user());
             $stock->save();
         } else {
-            $existingStock->setAmount((int)$existingStock->getAmount() + (int)$request['amount']);
+            $existingStock->setAmount((int)$existingStock->getAmount() + (int)$amount);
             $existingStock->save();
         }
 
         $user = auth()->user();
-        $user->decreaseFunds($request['currentPrice']*$request['amount']);
+        $user->decreaseFunds($currentPrice * $amount);
         $user->save();
     }
 }

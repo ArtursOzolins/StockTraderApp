@@ -3,8 +3,12 @@
 namespace App\Repositories;
 
 use Finnhub\Api\DefaultApi;
+use Finnhub\ApiException;
 use Finnhub\Configuration;
 use GuzzleHttp\Client;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class FinnhubStocksRepository implements StocksRepository
 {
@@ -15,6 +19,12 @@ class FinnhubStocksRepository implements StocksRepository
         $this->client = $client;
     }
 
+    /**
+     * @throws NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws ApiException
+     */
     public function getDataByName(string $companyName)
     {
         if(cache()->has($companyName))
@@ -30,7 +40,7 @@ class FinnhubStocksRepository implements StocksRepository
             $general = cache()->get($symbol);
         } else {
             $general = $this->client->companyProfile2($symbol);
-            cache()->put($symbol, $general);
+            cache()->put($symbol, $general, now()->addDay());
         }
 
         $prices = $this->client->quote($symbol);

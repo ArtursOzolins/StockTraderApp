@@ -2,23 +2,21 @@
 
 namespace App\Services;
 
-use Symfony\Component\HttpFoundation\Request;
-
 class StockSellService
 {
-    public function sellStock(Request $request)
+    public function sellStock(int $id, int $amount, float $price)
     {
-        $stock = auth()->user()->stock()->get()->find($request->get('id'));
+        $stock = auth()->user()->stock()->get()->find($id);
 
-        if($request->get('amount') == $stock->getAmount())
+        if($amount == $stock->getAmount())
         {
             $stock->delete();
-            auth()->user()->addFunds($request->get('amount')*$request->get('price'));
+            auth()->user()->addFunds($amount * $price);
             auth()->user()->save();
         } else {
-            $stock->setAmount($stock->getAmount()-$request->get('amount'));
+            $stock->setAmount((float)$stock->getAmount() - $amount);
             $stock->save();
-            auth()->user()->addFunds($request->get('amount')*$request->get('price'));
+            auth()->user()->addFunds($amount * $price);
             auth()->user()->save();
         }
     }

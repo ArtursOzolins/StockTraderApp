@@ -2,7 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\FinnhubStocksRepository;
+use App\Repositories\StocksRepository;
+use App\Services\StockGetService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class stockUpdate extends Command
 {
@@ -25,9 +29,14 @@ class stockUpdate extends Command
      *
      * @return void
      */
-    public function __construct()
+
+    private StocksRepository $stocksRepository;
+
+    public function __construct(StocksRepository $stocksRepository)
     {
         parent::__construct();
+
+        $this->stocksRepository = $stocksRepository;
     }
 
     /**
@@ -35,8 +44,18 @@ class stockUpdate extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): void
     {
-        echo 'works';
+        $records = DB::table('stocks')->get();
+
+
+        foreach ($records as $record)
+        {
+            $newest_price = $this->stocksRepository->getDataByName(str_replace(' Inc','',$record->name))['currentPrice'];
+
+            DB::table('stocks')
+                ->where('id', $record->id)
+                ->update(['newest_price' => $newest_price]);
+        }
     }
 }

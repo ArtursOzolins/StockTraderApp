@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
          $schedule->command('stock:update')
-                ->between('14.00', '21:00')
+                ->between('14:00', '21:00')
                 ->everyMinute();
     }
 

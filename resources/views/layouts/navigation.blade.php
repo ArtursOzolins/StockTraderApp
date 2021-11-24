@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        <img src="https://c.tenor.com/jw92b2HUuTAAAAAM/stonks-stocks.gif" width="80px">
                     </a>
                 </div>
 

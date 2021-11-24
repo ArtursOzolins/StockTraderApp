@@ -30,7 +30,7 @@ class StocksController extends Controller
     public function searchView(Request $request)
     {
         if ($request['company'] != null) {
-            $this->company = $this->stockGetService->searchStock($request);
+            $this->company = $this->stockGetService->searchStock($request['company']);
         }
 
         return view('searchTab', ['company' => $this->company]);
@@ -38,9 +38,14 @@ class StocksController extends Controller
 
     public function purchase(Request $request): RedirectResponse
     {
-        $this->stockPurchaseService->purchaseStock($request);
+        $this->stockPurchaseService->purchaseStock(
+            $request['symbol'],
+            $request['name'],
+            $request['currentPrice'],
+            $request['amount']
+        );
 
-        return redirect(route('stocks.owned'));
+        return redirect(route('dashboard'));
     }
 
     public function ownedView()
@@ -50,9 +55,9 @@ class StocksController extends Controller
         return view('ownedStocksTab', ['stock' => $userStock]);
     }
 
-    public function sell(Request $request): RedirectResponse
+    public function sell(Request $request)
     {
-        $this->stockSellService->sellStock($request);
+        $this->stockSellService->sellStock((int)$request['id'], (int)$request['amount'], (float)$request['price']);
 
         return redirect(route('stocks.owned'));
     }

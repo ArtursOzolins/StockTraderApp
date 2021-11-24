@@ -15,9 +15,9 @@ class StockGetService
         $this->stocksRepository = $stocksRepository;
     }
 
-    public function searchStock(Request $request)
+    public function searchStock(string $name)
     {
-        return $this->stocksRepository->getDataByName($request['company']);
+        return $this->stocksRepository->getDataByName($name);
     }
 
     public function getStockOwnedByUser($user)

@@ -53,8 +53,23 @@ class Stock extends Model
         return $this->newest_price;
     }
 
+    public function getProfit()
+    {
+        if($this->newest_price >= $this->purchased_for)
+        {
+            return '+' . ((float)$this->newest_price - (float)$this->purchased_for);
+        } else {
+            return '-' . ((float)$this->purchased_for - (float)$this->newest_price);
+        }
+    }
+
     public function setAmount($amount)
     {
         $this->amount = $amount;
+    }
+
+    public function setNewestValue($newPrice)
+    {
+        $this->newest_price = $newPrice;
     }
 }
